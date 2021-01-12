@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Kubeboard</title>
+</head>
+<body>
+    <h1>Kubeboard</h1>
+    <script>
+     //   console.log("asdfadfasd")
+        const k8s = require('@kubernetes/client-node');
+
+        const kc = new k8s.KubeConfig();
+        kc.loadFromDefault();
+
+        const k8sApi = kc.makeApiClient(k8s.CoreV1Api);
+
+        k8sApi.listNamespacedPod('default').then((res) => {
+        console.log(res.body);
+});
+    </script>
+</body>
+</html>
