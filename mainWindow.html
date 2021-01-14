@@ -5,18 +5,21 @@
 </head>
 <body>
     <h1>Kubeboard</h1>
+    <select  id="namespaces"></select>
     <script>
      //   console.log("asdfadfasd")
         const k8s = require('@kubernetes/client-node');
 
         const kc = new k8s.KubeConfig();
         kc.loadFromDefault();
-
+        console.log("dfsdfdaafasdfasdfasdf")
         const k8sApi = kc.makeApiClient(k8s.CoreV1Api);
-
+        k8sApi.listNamespace().then((res) => {
+            console.log("namespaces", res.body);
+        });
         k8sApi.listNamespacedPod('default').then((res) => {
-        console.log(res.body);
-});
+            console.log("pods", res.body);
+        });
     </script>
 </body>
 </html>
