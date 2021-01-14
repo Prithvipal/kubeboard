@@ -15,7 +15,12 @@
         console.log("dfsdfdaafasdfasdfasdf")
         const k8sApi = kc.makeApiClient(k8s.CoreV1Api);
         k8sApi.listNamespace().then((res) => {
-            console.log("namespaces", res.body);
+            let nsSelect = document.getElementById("namespaces")
+            res.body.items.forEach((value)=>{
+                var option = document.createElement("option");
+                option.text = value.metadata.name;
+                nsSelect.add(option);
+            });
         });
         k8sApi.listNamespacedPod('default').then((res) => {
             console.log("pods", res.body);
