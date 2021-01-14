@@ -5,7 +5,7 @@
 </head>
 <body>
     <h1>Kubeboard</h1>
-    <select  id="namespaces"></select>
+    <select  id="namespaces" onchange="getPods()"></select>
     <script>
      //   console.log("asdfadfasd")
         const k8s = require('@kubernetes/client-node');
@@ -19,12 +19,17 @@
             res.body.items.forEach((value)=>{
                 var option = document.createElement("option");
                 option.text = value.metadata.name;
+                option.value = value.metadata.name;
                 nsSelect.add(option);
             });
         });
-        k8sApi.listNamespacedPod('default').then((res) => {
+
+        function getPods(){
+            var nsName = document.getElementById("namespaces").value;
+            k8sApi.listNamespacedPod(nsName).then((res) => {
             console.log("pods", res.body);
         });
+        }
     </script>
 </body>
 </html>
