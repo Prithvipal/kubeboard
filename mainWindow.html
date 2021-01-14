@@ -14,7 +14,10 @@
         kc.loadFromDefault();
         console.log("dfsdfdaafasdfasdfasdf")
         const k8sApi = kc.makeApiClient(k8s.CoreV1Api);
-        k8sApi.listNamespace().then((res) => {
+       
+        getNamespaces()
+        function getNamespaces(){
+            k8sApi.listNamespace().then((res) => {
             let nsSelect = document.getElementById("namespaces")
             res.body.items.forEach((value)=>{
                 var option = document.createElement("option");
@@ -22,12 +25,26 @@
                 option.value = value.metadata.name;
                 nsSelect.add(option);
             });
+            getPods()
         });
+        }
 
         function getPods(){
             var nsName = document.getElementById("namespaces").value;
             k8sApi.listNamespacedPod(nsName).then((res) => {
-            console.log("pods", res.body);
+            // console.log("pods", res.body);
+            res.body.items.forEach((value)=>{
+                
+                console.log("value===", value)
+                let restartCount = 0
+                value.status.containerStatuses.forEach((containerStatus)=>{
+                    restartCount += containerStatus.restartCount
+                });
+                
+                console.log("Name=", value.metadata.name)
+                console.log("Node=", value.spec.nodeName)
+                console.log("restartCount===", restartCount)
+            });
         });
         }
     </script>
