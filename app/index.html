@@ -5,8 +5,11 @@
     <link rel="stylesheet" href="./css/style.css" />
 </head>
 <body>
+    <div class="header">
+        <select  id="namespaces" onchange="getPods()"></select>
+      </div>
     <h1>Kubeboard</h1>
-    <select  id="namespaces" onchange="getPods()"></select>
+    
     <table id="podtable" aria-label="PodList"> 
         <tr>
             <th scope="col">Name</th> 
