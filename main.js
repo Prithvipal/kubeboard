@@ -22,13 +22,5 @@ app.on('ready', function(){
         mainWindow.webContents.openDevTools()
     }
     
-    mainWindow.loadURL(
-        url.format(
-            {
-                pathname: path.join(__dirname, 'mainWindow.html'),
-                protocol: 'file:',
-                slashes: true        
-            }
-        )
-    );
+    mainWindow.loadFile('./app/index.html');
 });
