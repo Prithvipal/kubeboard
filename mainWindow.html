@@ -2,10 +2,21 @@
 <html lang="en">
 <head>
     <title>Kubeboard</title>
+    <link rel="stylesheet" href="./app/css/style.css" />
 </head>
 <body>
     <h1>Kubeboard</h1>
     <select  id="namespaces" onchange="getPods()"></select>
+    <table id="podtable" aria-label="PodList"> 
+        <tr>
+            <th scope="col">Name</th> 
+            <th scope="col">Node</th> 
+            <th scope="col">Status</th> 
+            <th scope="col">Restart</th>
+            <th scope="col">Age</th>
+            <th scope="col">Actions</th>
+        </tr>
+    </table>
     <script>
      //   console.log("asdfadfasd")
         const k8s = require('@kubernetes/client-node');
@@ -43,7 +54,7 @@
                 
                 console.log("Name=", value.metadata.name)
                 console.log("Node=", value.spec.nodeName)
-                console.log("restartCount===", restartCount)
+                console.log("restartCount=", restartCount)
             });
         });
         }
